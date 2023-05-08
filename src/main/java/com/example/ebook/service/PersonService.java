@@ -30,6 +30,19 @@ public class PersonService {
     }
 
     public void deletePersonById(long id) {
-        personRep.deleteById(id);
+        personRep.deletePersonEntityById(id);
+    }
+
+    public Person getOneById(long id) {
+        PersonEntity personEntity = personRep.findById(id).orElseThrow(() -> new IllegalArgumentException("Person not found by id: " + id));
+        return mapper.map(personEntity);
+    }
+
+    public void createPerson(PersonEntity personEntity) {
+        personRep.save(personEntity);
+    }
+
+    public Person update(PersonEntity personEntity) {
+        personRep.
     }
 }

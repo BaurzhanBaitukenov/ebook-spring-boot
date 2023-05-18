@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PersonRep extends JpaRepository<PersonEntity,Long> {
 
-    void deletePersonEntityById(long id);
 }

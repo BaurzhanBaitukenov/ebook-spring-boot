@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
 <!--HEAD-->
-<head th:replace="footerAndHeader/header :: html_head"></head>
+<head th:replace="footerAndHeader/header :: html_head">
+
+</head>
 <body>
 
 <!--NAVBAR-->
@@ -33,6 +35,8 @@
                         </tr>
                         </tbody>
                     </table>
+
+
                     <a th:href="@{/catalog}" class="btn btn-primary me-2">Buy</a>
 
                     <form th:action="@{/catalog/{id}(id=${book.id})}">

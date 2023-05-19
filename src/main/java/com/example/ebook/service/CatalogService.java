@@ -1,12 +1,9 @@
 package com.example.ebook.service;
 
 import com.example.ebook.domain.Catalog;
-import com.example.ebook.domain.Person;
 import com.example.ebook.mapper.Mapper;
 import com.example.ebook.model.CatalogEntity;
-import com.example.ebook.model.PersonEntity;
 import com.example.ebook.repo.CatalogRep;
-import com.example.ebook.repo.PersonRep;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,5 +34,16 @@ public class CatalogService {
 
     public void createBook(CatalogEntity catalogEntity) {
         catalogRep.save(catalogEntity);
+    }
+
+    public Catalog update(long id, String name, String title, String author, String genre, int price) {
+        CatalogEntity catalogEntity = catalogRep.findById(id).orElseThrow();
+        catalogEntity.setName(name);
+        catalogEntity.setTitle(title);
+        catalogEntity.setAuthor(author);
+        catalogEntity.setGenre(genre);
+        catalogEntity.setPrice(price);
+        CatalogEntity updatedCatalogEntity = catalogRep.save(catalogEntity);
+        return mapper.mapCatalog(updatedCatalogEntity);
     }
 }

@@ -13,6 +13,8 @@ public class Catalog {
 
     private String author;
 
+    private String genre;
+
     private int price;
 
     private String imageUrl;
@@ -22,12 +24,14 @@ public class Catalog {
                    @JsonProperty("name") final String name,
                    @JsonProperty("title") final String title,
                    @JsonProperty("author") final String author,
+                   @JsonProperty("genre") final String genre,
                    @JsonProperty("price") final int price,
                    @JsonProperty("imageUrl") final String imageUrl) {
         this.id = id;
         this.name = name;
         this.title = title;
         this.author = author;
+        this.genre = genre;
         this.price = price;
         this.imageUrl = imageUrl;
     }
@@ -45,6 +49,14 @@ public class Catalog {
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public String getImageUrl() {

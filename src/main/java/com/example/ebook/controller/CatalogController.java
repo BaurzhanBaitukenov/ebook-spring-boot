@@ -2,9 +2,7 @@ package com.example.ebook.controller;
 
 import com.example.ebook.domain.Catalog;
 import com.example.ebook.model.CatalogEntity;
-import com.example.ebook.model.PersonEntity;
 import com.example.ebook.service.CatalogService;
-import com.example.ebook.service.PersonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +42,25 @@ public class CatalogController {
     @PostMapping("/create")
     public String createNewBook(@ModelAttribute("book") CatalogEntity catalogEntity) {
         catalogService.createBook(catalogEntity);
+        return "redirect:/catalog";
+    }
+
+    @GetMapping("{id}/edit")
+    public String editBookPage(@PathVariable("id") long id, Model model) {
+        model.addAttribute("book", catalogService.getOneById(id));
+        return "catalog/editBook";
+    }
+
+    @PostMapping("/{id}")
+    public String updateBook(@PathVariable("id") long id,
+                             @RequestParam String name,
+                             @RequestParam String title,
+                             @RequestParam String author,
+                             @RequestParam String genre,
+                             @RequestParam int price,
+                             Model model) {
+        Catalog book = catalogService.update(id, name, title, author, genre, price);
+        model.addAttribute("book", book);
         return "redirect:/catalog";
     }
 

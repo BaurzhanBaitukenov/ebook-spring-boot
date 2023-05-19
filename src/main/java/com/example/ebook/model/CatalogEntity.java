@@ -20,23 +20,35 @@ public class CatalogEntity {
     @Column(name = "AUTHOR")
     private String author;
 
+    @Column(name = "GENRE")
+    private String genre;
+
     @Column(name = "PRICE")
     private int price;
 
     @Column(name = "IMAGE_URL") // Add a column for the image URL or path
     private String imageUrl;
 
-    public CatalogEntity(int id, String name, String title, String author, int price, String imageUrl) {
+    public CatalogEntity(int id, String name, String title, String author, String genre, int price, String imageUrl) {
         this.id = id;
         this.name = name;
         this.title = title;
         this.author = author;
         this.price = price;
         this.imageUrl = imageUrl;
+        this.genre = genre;
     }
 
     public CatalogEntity() {
 
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public String getImageUrl() {

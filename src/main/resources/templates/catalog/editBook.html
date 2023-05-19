@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Book</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/catalog/{id}(id = ${book.getId()})}" th:object="${book}">
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" id="name" />
+    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+    <br/>
+
+    <label for="title">Title: </label>
+    <input type="text" th:field="*{title}" id="title" />
+    <div style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title error</div>
+    <br/>
+
+    <label for="author">Author: </label>
+    <input type="text" th:field="*{author}" id="author" />
+    <div style="color: red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Author error</div>
+    <br/>
+
+    <label for="genre">Genre: </label>
+    <input type="text" th:field="*{genre}" id="genre" />
+    <div style="color: red" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}">Genre error</div>
+    <br/>
+
+    <label for="price">Price: </label>
+    <input type="number" th:field="*{price}" id="price" />
+    <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price error</div>
+    <br/>
+
+    <input type="submit" value="Update!"/>
+</form>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

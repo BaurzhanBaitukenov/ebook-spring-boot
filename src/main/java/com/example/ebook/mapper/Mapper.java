@@ -25,7 +25,7 @@ public class Mapper {
             return null;
         }
 
-        Catalog result = new Catalog(catalogEntity.getId(), catalogEntity.getName(), catalogEntity.getTitle(), catalogEntity.getAuthor(), catalogEntity.getPrice(), catalogEntity.getImageUrl());
+        Catalog result = new Catalog(catalogEntity.getId(), catalogEntity.getName(), catalogEntity.getTitle(), catalogEntity.getAuthor(), catalogEntity.getGenre(),catalogEntity.getPrice(), catalogEntity.getImageUrl());
 
         return result;
     }

@@ -43,6 +43,10 @@
                         <a th:href="@{/catalog/{id}/edit(id=${book.id})}" class="btn btn-primary">Edit</a>
                     </form>
 
+                    <form th:action="@{/catalog/delete/{id}(id = ${book.getId()})}" method="post">
+                        <input class="btn btn-primary" type="submit" value="Delete" />
+                    </form>
+
                 </div>
             </div>
         </div>

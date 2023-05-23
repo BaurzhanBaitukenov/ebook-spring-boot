@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<!--HEAD-->
+<head th:replace="footerAndHeader/header :: html_head"></head>
 <body>
-$END$
+
+<!--NAVBAR-->
+<div th:replace="footerAndHeader/header :: navbar">
+    <link rel="stylesheet" href="css/style.css">
+</div>
+
+<h1>Welcome to the personal page <span th:text="${userName}"></span></h1>
+
 </body>
 </html>

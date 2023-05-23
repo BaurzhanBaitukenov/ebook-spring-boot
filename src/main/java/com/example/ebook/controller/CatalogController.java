@@ -45,7 +45,7 @@ public class CatalogController {
         return "redirect:/catalog";
     }
 
-    @GetMapping("{id}/edit")
+    @GetMapping("/{id}/edit")
     public String editBookPage(@PathVariable("id") long id, Model model) {
         model.addAttribute("book", catalogService.getOneById(id));
         return "catalog/editBook";
@@ -61,6 +61,13 @@ public class CatalogController {
                              Model model) {
         Catalog book = catalogService.update(id, name, title, author, genre, price);
         model.addAttribute("book", book);
+        return "redirect:/catalog";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteBook(@PathVariable("id") long id) {
+        catalogService.deleteBookById(id);
+
         return "redirect:/catalog";
     }
 

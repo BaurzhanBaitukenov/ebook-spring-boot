@@ -68,14 +68,8 @@ public class PersonController {
     }
 
 
-    @DeleteMapping("/{id}")
-    public String deletePerson(@PathVariable("id") long id,
-                               @RequestParam("name") String name,
-                               @RequestParam("lastName") String lastName,
-                               @RequestParam("email") String email,
-                               @RequestParam("password") String password,
-                               @RequestParam("age") int age,
-                               Model model) {
+    @PostMapping("/delete/{id}")
+    public String deletePerson(@PathVariable("id") long id) {
         personService.deletePersonById(id);
         return "redirect:/person/list";
     }

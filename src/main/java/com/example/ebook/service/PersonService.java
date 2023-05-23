@@ -4,6 +4,7 @@ import com.example.ebook.domain.Person;
 import com.example.ebook.mapper.Mapper;
 import com.example.ebook.model.PersonEntity;
 import com.example.ebook.repo.PersonRep;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class PersonService {
     }
 
     public List<Person> getAll() {
-        List<PersonEntity> personEntities = personRep.findAll();
+        List<PersonEntity> personEntities = personRep.findAll(Sort.by(Sort.Direction.ASC, "id"));
         return personEntities.stream()
                 .map(personEntity -> mapper.mapPerson(personEntity))
                 .collect(Collectors.toList());
@@ -43,8 +44,8 @@ public class PersonService {
     }
 
     public void createPerson(PersonEntity personEntity) {
-        String encodedPassword = this.passwordEncoder.encode(personEntity.getPassword());
-        personEntity.setPassword(encodedPassword);
+//        String encodedPassword = this.passwordEncoder.encode(personEntity.getPassword());
+//        personEntity.setPassword(encodedPassword);
         personRep.save(personEntity);
     }
 
@@ -58,5 +59,23 @@ public class PersonService {
 
         PersonEntity updatedPerson = personRep.save(personEntity);
         return mapper.mapPerson(updatedPerson);
+    }
+
+    public Person registrationPerson(String name, String lastName, String email, int age, String password) {
+        if (name == null || password == null) {
+            return null;
+        } else {
+            PersonEntity personEntity = new PersonEntity();
+            personEntity.setName(name);
+            personEntity.setLastName(lastName);
+            personEntity.setEmail(email);
+            personEntity.setPassword(password);
+            personEntity.setAge(age);
+            return mapper.mapPerson(personRep.save(personEntity));
+        }
+    }
+
+    public Person authenticate(String email, String password) {
+        return mapper.mapPerson(personRep.findPersonEntityByEmailAndPassword(email, password).orElseThrow());
     }
 }

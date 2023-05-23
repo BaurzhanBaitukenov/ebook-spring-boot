@@ -19,6 +19,9 @@ public class Person {
 
     private int age;
 
+    public Person() {
+    }
+
     @JsonCreator
     public Person(@JsonProperty("id") final Long id,
                     @JsonProperty("name") final String name,

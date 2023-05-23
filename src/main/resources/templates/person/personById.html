@@ -31,13 +31,7 @@
 </table>
 <button type="button" class="btn btn-primary" onclick="location.href='/person/list'">Go Back</button>
 
-    <form th:action="@{/person/{id}(id = ${person.getId()})}" method="post">
-        <input type="hidden" name="_method" value="DELETE" />
-        <input type="hidden" name="name" value="name" />
-        <input type="hidden" name="lastName" value="lastName" />
-        <input type="hidden" name="email" value="email" />
-        <input type="hidden" name="password" value="password" />
-        <input type="hidden" name="age" value="${person.getAge()}" />
+    <form th:action="@{/person/delete/{id}(id = ${person.getId()})}" method="post">
         <input class="btn btn-primary" type="submit" value="Delete" />
     </form>
 

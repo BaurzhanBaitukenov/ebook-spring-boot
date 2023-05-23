@@ -4,6 +4,7 @@ import com.example.ebook.domain.Catalog;
 import com.example.ebook.mapper.Mapper;
 import com.example.ebook.model.CatalogEntity;
 import com.example.ebook.repo.CatalogRep;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class CatalogService {
     }
 
     public List<Catalog> getAll() {
-        List<CatalogEntity> catalogEntities = catalogRep.findAll();
+        List<CatalogEntity> catalogEntities = catalogRep.findAll(Sort.by(Sort.Direction.ASC, "id"));
         return catalogEntities.stream()
                 .map(catalogEntity -> mapper.mapCatalog(catalogEntity))
                 .collect(Collectors.toList());
@@ -45,5 +46,10 @@ public class CatalogService {
         catalogEntity.setPrice(price);
         CatalogEntity updatedCatalogEntity = catalogRep.save(catalogEntity);
         return mapper.mapCatalog(updatedCatalogEntity);
+    }
+
+    public void deleteBookById(long id) {
+        CatalogEntity catalogEntity = catalogRep.findById(id).orElseThrow();
+        catalogRep.delete(catalogEntity);
     }
 }

@@ -9,7 +9,38 @@
     <link rel="stylesheet" href="css/style.css">
 </div>
 
-<h1>Welcome to the personal page <span th:text="${userName}"></span></h1>
+
+<section class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <!-- Profile Card -->
+            <div class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx9tjaExsY-srL4VsHNE_OKGVCJ-eIFNBktw&usqp=CAU" class="card-img-top" alt="Profile Image">
+                <div class="card-body">
+                    <strong>Name:</strong><h5 class="card-title" th:text="${user.name}">exampleName</h5>
+                    <strong>Last Name:</strong><h5 class="card-title" th:text="${user.lastName}">exampleLastName</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <!-- Profile Details -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Profile Details</h5>
+                    <p class="card-text">
+                        <strong>Email:</strong> <span th:text="${user.email}">exampleEmail</span><br>
+                        <strong>Age:</strong> <span th:text="${user.age}">exampleEmail</span><br>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit" class="btn btn-danger">Logout</button>
+</form>
+
 
 </body>
 </html>

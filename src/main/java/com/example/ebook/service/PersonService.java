@@ -44,8 +44,8 @@ public class PersonService {
     }
 
     public void createPerson(PersonEntity personEntity) {
-//        String encodedPassword = this.passwordEncoder.encode(personEntity.getPassword());
-//        personEntity.setPassword(encodedPassword);
+        String encodedPassword = this.passwordEncoder.encode(personEntity.getPassword());
+        personEntity.setPassword(encodedPassword);
         personRep.save(personEntity);
     }
 
@@ -66,6 +66,8 @@ public class PersonService {
             return null;
         } else {
             PersonEntity personEntity = new PersonEntity();
+//            String encoded = this.passwordEncoder.encode(password);
+
             personEntity.setName(name);
             personEntity.setLastName(lastName);
             personEntity.setEmail(email);
@@ -77,5 +79,9 @@ public class PersonService {
 
     public Person authenticate(String email, String password) {
         return mapper.mapPerson(personRep.findPersonEntityByEmailAndPassword(email, password).orElseThrow());
+    }
+
+    public void assignRole(Person person, String role) {
+        person.setRole(role);
     }
 }

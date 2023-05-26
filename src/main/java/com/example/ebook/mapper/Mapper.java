@@ -15,7 +15,7 @@ public class Mapper {
         }
 
         Person result = new Person(personEntity.getId(), personEntity.getName(), personEntity.getLastName(), personEntity.getEmail(),
-                personEntity.getPassword(), personEntity.getAge());
+                personEntity.getPassword(), personEntity.getAge(), personEntity.getRole());
 
         return result;
     }

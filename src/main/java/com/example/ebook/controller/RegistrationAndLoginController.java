@@ -2,6 +2,9 @@ package com.example.ebook.controller;
 
 import com.example.ebook.domain.Person;
 import com.example.ebook.service.PersonService;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,21 +15,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class RegistrationAndLoginController {
 
     private final PersonService personService;
+    private final PasswordEncoder passwordEncoder;
 
     public RegistrationAndLoginController(PersonService personService) {
         this.personService = personService;
+        this.passwordEncoder = new BCryptPasswordEncoder();
     }
+
+    // registration
 
     @GetMapping("/register")
     public String getRegistrationPage(Model model) {
         model.addAttribute("registerRequest", new Person());
         return "registrationAndLogin/registration";
-    }
-
-    @GetMapping("/login")
-    public String getLoginPage(Model model) {
-        model.addAttribute("loginRequest", new Person());
-        return "registrationAndLogin/login";
     }
 
     @PostMapping("/register")
@@ -36,15 +37,46 @@ public class RegistrationAndLoginController {
         return registeredPerson == null ? "error/error" : "redirect:/login";
     }
 
+
+
+    //login
+
+    @GetMapping("/login")
+    public String getLoginPage(Model model) {
+        model.addAttribute("loginRequest", new Person());
+        return "registrationAndLogin/login";
+    }
+
+
     @PostMapping("/login")
-    public String login(@ModelAttribute Person person, Model model) {
+    public String login(@ModelAttribute Person person, HttpSession session) {
         System.out.println("Login request " + person);
+//        String encoded = this.passwordEncoder.encode(person.getPassword());
+
         Person authenticate = personService.authenticate(person.getEmail(), person.getPassword());
-        if(authenticate != null) {
-            model.addAttribute("userName", authenticate.getName());
-            return "person/profile";
+        if (authenticate != null) {
+            session.setAttribute("user", authenticate);
+            return "redirect:/profile";
         } else {
-            return "error/error";
+            return "redirect:/login";
         }
     }
+
+    @GetMapping("/profile")
+    public String showProfilePage(HttpSession session, Model model) {
+        Person person = (Person) session.getAttribute("user");
+        if (person != null) {
+            model.addAttribute("user", person);
+            return "person/profile";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // Invalidate the session to remove the user attribute
+        return "redirect:/login";
+    }
+
 }

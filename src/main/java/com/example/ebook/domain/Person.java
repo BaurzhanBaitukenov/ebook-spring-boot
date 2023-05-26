@@ -19,6 +19,8 @@ public class Person {
 
     private int age;
 
+    private String role;
+
     public Person() {
     }
 
@@ -28,13 +30,15 @@ public class Person {
                     @JsonProperty("lastName") final String lastName,
                     @JsonProperty("email") final String email,
                     @JsonProperty("password") final String password,
-                    @JsonProperty("age") final int age) {
+                    @JsonProperty("age") final int age,
+                    @JsonProperty("age") final String role) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.age = age;
+        this.role = role;
     }
 
     @Override
@@ -108,5 +112,13 @@ public class Person {
 
     public int getAge() {
         return age;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

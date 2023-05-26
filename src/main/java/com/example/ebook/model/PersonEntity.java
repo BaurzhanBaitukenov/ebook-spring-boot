@@ -26,16 +26,20 @@ public class PersonEntity {
     @Column(name = "AGE")
     private int age;
 
+    @Column(name = "ROLE")
+    private String role;
+
     public PersonEntity() {
     }
 
-    public PersonEntity(long id, String name, String lastName, String email, String password, int age) {
+    public PersonEntity(long id, String name, String lastName, String email, String password, int age, String role) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.age = age;
+        this.role = role;
     }
 
     public long getId() {
@@ -84,5 +88,13 @@ public class PersonEntity {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
